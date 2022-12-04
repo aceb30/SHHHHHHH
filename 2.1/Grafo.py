@@ -35,24 +35,3 @@ for n in range(0,pasos):
 camino+=nx.dijkstra_path(Grafo, nf, "L1")
 
 print(camino)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
