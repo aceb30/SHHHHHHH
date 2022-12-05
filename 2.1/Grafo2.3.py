@@ -26,12 +26,10 @@ for n in range(0,numerodearistas):
 T = nx.minimum_spanning_tree(Grafo)
 sorted(T.edges(data=True))
 
-print(Grafo.edges)
-
 R = nx.difference(Grafo, T)
 R = list(R.edges)
 
-Arbol = Grafo
+Arbol = Grafo.copy()
 
 for n in range(0,len(R)):
     nodo1 = R[n][0]
@@ -39,40 +37,41 @@ for n in range(0,len(R)):
     Arbol.remove_edge(nodo1, nodo2)
 
 
-
-Listanodos= list(Grafo.nodes)
-listedges= list(Arbol.edges)
-
 CPC=[]
 
-for n in range(0, len(Listanodos)):
-    if len(Arbol.edges(Listanodos[n]))==1:
-        nodo = Listanodos[n]
-        print(nodo)
-        for m in range(0, len(listedges)):
-            if listedges[m][0] == nodo or listedges[m][1] == nodo:
-                nodo1 = listedges[m][0]
-                nodo2 = listedges[m][1]
-                if nodo1 == nodo:
-                    nodo11 = nodo1
-                    nodo22 = nodo2
-                if nodo2 == nodo:
-                    nodo11 = nodo2
-                    nodo22 = nodo1
+while len(list(Arbol.nodes))!=0 and len(list(Arbol.edges))!=0:
+    for nodo in list(Arbol.nodes):
+        if len(Arbol.edges(nodo))==1:
+            for edge in list(Arbol.edges):
+                if edge[0] == nodo or edge[1] == nodo:
+                    nodo1 = edge[0]
+                    nodo2 = edge[1]
+                    if nodo1 == nodo:
+                        nodo11 = nodo1
+                        nodo22 = nodo2
+                    if nodo2 == nodo:
+                        nodo11 = nodo2
+                        nodo22 = nodo1
 
-                CPC.append([nodo1, nodo2])
-                Arbol.remove_edge(nodo1, nodo2)
-                Listanodos.remove(nodo)
-                Arbol.remove_node(nodo11)
-                print(CPC)
-                if len(Arbol.edges(nodo22)) == 1:
-                    Arbol.remove_node(nodo22)
-                
+                    CPC.append([nodo1, nodo2])
+                    try:
+                        Arbol.remove_edge(nodo1, nodo2)
+                    except:
+                        pass
+                    try:
+                        Arbol.remove_node(nodo)
+                    except:
+                        pass
+                    try:
+                        Arbol.remove_node(nodo11)
+                    except:
+                        pass
 
-    n=0
+                    if len(Arbol.edges(nodo22)) == 1:
+                        Arbol.remove_node(nodo22)
 
-
-
-
-print(CPC)
-
+if len(list(Arbol.nodes))!=0:
+    nodo = (list(Arbol.nodes))
+    edges = list(Grafo.edges(nodo[0]))
+    CPC.append([edges[0][0],edges[0][1]])
+    print(CPC)
