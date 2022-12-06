@@ -67,7 +67,7 @@ while len(list(Arbol.nodes))!=0 and len(list(Arbol.edges))!=0:
                     except:
                         pass
 
-                    if len(Arbol.edges(nodo22)) == 1:
+                    if len(Arbol.edges(nodo22)) <= 2:
                         Arbol.remove_node(nodo22)
 
 if len(list(Arbol.nodes))!=0:
