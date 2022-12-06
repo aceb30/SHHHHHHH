@@ -4,6 +4,8 @@ import pylab as plt
 from networkx import minimum_spanning_tree
 from networkx.algorithms import node_classification
 
+""" Se realiza la lectura del archivo"""
+
 Grafo = nx.Graph()
 Arbol= nx.Graph()
 archivo = open("Bianca.txt", "r")
@@ -14,6 +16,8 @@ for n in range(0,numerodenodos):
 
 numerodearistas = int(archivo.readline())
 
+""" Se agrega cada componente al grafo """
+
 for n in range(0,numerodearistas):
     arista1 = archivo.readline()
     separador= " "
@@ -22,6 +26,7 @@ for n in range(0,numerodearistas):
     nodo2=arista[1]
     Grafo.add_edge(nodo1, nodo2, weight=1)
 
+""" Creamos un Árbol del Grafo original mediante “minimum_spanning_tree”  """
 
 T = nx.minimum_spanning_tree(Grafo)
 sorted(T.edges(data=True))
@@ -36,8 +41,10 @@ for n in range(0,len(R)):
     nodo2 = R[n][1]
     Arbol.remove_edge(nodo1, nodo2)
 
-
 CPC=[]
+
+""" Buscamos nodos de grado (1) y guardamos esa arista, y a la vez eliminamos tanto el nodo 
+como la arista del árbol para repetir el ciclo """
 
 while len(list(Arbol.nodes))!=0 and len(list(Arbol.edges))!=0:
     for nodo in list(Arbol.nodes):
